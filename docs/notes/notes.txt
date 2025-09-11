@@ -15,4 +15,5 @@ Branch Usage Reflections:
 Because I save and push my progress after every step, I did not realize we were supposed to wait until we created the new branch to push our wireframe pictures and notes. Therefore, I am not sure if that data ended up in the test branch. However, the process of creating and switching between branches was very smooth.
 
 Django Set Up:
+I used Assignment_Project_Abby_ac101 as my project folder name because that was what it automatically set to when I made this project. I tried changing it so it was differeny, but I had some problems pushing when that happened. I will seek help on how to successfully change the name of the folder.
 Set up went very smooth, and I was able to open the link to my web application
