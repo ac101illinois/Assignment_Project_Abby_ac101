@@ -16,4 +16,7 @@ Because I save and push my progress after every step, I did not realize we were 
 
 Django Set Up:
 I used Assignment_Project_Abby_ac101 as my project folder name because that was what it automatically set to when I made this project. I tried changing it so it was differeny, but I had some problems pushing when that happened. I will seek help on how to successfully change the name of the folder.
-Set up went very smooth, and I was able to open the link to my web application
+Set up went very smooth, and I was able to open the link to my web application.
+
+Virtual Environment:
+I created a new virtual environment using the newest version of python. I did this so that there would be not interference between this project and my other project.
