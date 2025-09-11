@@ -3,3 +3,9 @@ Ideas:
 1. A Map that pinpoints each coffee shop on campus that a student could study at
 2. A Rate/Review system so students can keep track of which spots they liked or did not like
 3. A potential study page where lofi music plays while they work?
+
+Wireframes:
+
+- I sketched a menu page with an image of a coffee mug with a foam art location pointer in the middle, along with the rest of the pages at the top
+- I made a frame for the map, and a search bar at the top
+- I also made a page for users to go back to the shops they have visited before and see what their overall thoughts and rating were about the shop
