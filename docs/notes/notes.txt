@@ -9,3 +9,7 @@ Wireframes:
 - I sketched a menu page with an image of a coffee mug with a foam art location pointer in the middle, along with the rest of the pages at the top
 - I made a frame for the map, and a search bar at the top
 - I also made a page for users to go back to the shops they have visited before and see what their overall thoughts and rating were about the shop
+
+Branching Strategy:
+
+I decided on a GitHub branching strategy because it is best suited for a smaller team. Since it is just me working on this project, this simple, easy approach to branching will be best
