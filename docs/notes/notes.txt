@@ -1,19 +1,18 @@
 Ideas:
-
 1. A Map that pinpoints each coffee shop on campus that a student could study at
 2. A Rate/Review system so students can keep track of which spots they liked or did not like
 3. A potential study page where lofi music plays while they work?
 
 Wireframes:
-
 - I sketched a menu page with an image of a coffee mug with a foam art location pointer in the middle, along with the rest of the pages at the top
 - I made a frame for the map, and a search bar at the top
 - I also made a page for users to go back to the shops they have visited before and see what their overall thoughts and rating were about the shop
 
 Branching Strategy:
-
 I decided on a GitHub branching strategy because it is best suited for a smaller team. Since it is just me working on this project, this simple, easy approach to branching will be best
 
 Branch Usage Reflections:
-
 Because I save and push my progress after every step, I did not realize we were supposed to wait until we created the new branch to push our wireframe pictures and notes. Therefore, I am not sure if that data ended up in the test branch. However, the process of creating and switching between branches was very smooth.
+
+Django Set Up:
+Set up went very smooth, and I was able to open the link to my web application

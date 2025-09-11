@@ -1,5 +1,5 @@
 """
-ASGI config for CoffeeLocationProject project.
+ASGI config for Assignment_Project_Abby_ac101 project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'CoffeeLocationProject.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Assignment_Project_Abby_ac101.settings')
 
 application = get_asgi_application()
