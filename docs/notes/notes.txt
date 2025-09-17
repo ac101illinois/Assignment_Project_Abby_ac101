@@ -20,3 +20,32 @@ Set up went very smooth, and I was able to open the link to my web application.
 
 Virtual Environment:
 I created a new virtual environment using the newest version of python. I did this so that there would be not interference between this project and my other project.
+
+Assignment #3 Notes:
+
+1. Why these models/fields?
+Since this project is about students trying out difference coffee shops on campus and
+reviewing them, I knew the main table needed to be students, and coffee shops needed
+to be its own entity. I also decided to make the visits to the coffee shops an entity
+to keep track of, and reviews as well.
+
+
+2. Your relationship choices (ForeignKey, on_delete rationale)
+Since Students are the main table, I knew the CoffeeShop table was going to be
+a separate table. Students and CoffeeShop have a one-to-many relationship with Visits
+because students can go to multiple coffee shops and coffee shops can have many visits,
+but not the other way around. CoffeeShop has a one-to-many relationship with Reviews
+because a coffee shop can have multiple reviews but not the other way around. And
+Visits has a one-to-one relationship with Reviews because each visit should only have one
+review, and each review should only be about one coffee shop.
+
+Any constraints (unique, ordering),
+
+
+
+How you seeded test data.
+
+Keep this as a brief running log, same spirit as A2.
+
+I recommend organizing your text from this point of time to impart readability.
+In the ReadMe.md, insert the ER diagram so that it is visible on your repo's homepage.
