@@ -39,13 +39,16 @@ because a coffee shop can have multiple reviews but not the other way around. An
 Visits has a one-to-one relationship with Reviews because each visit should only have one
 review, and each review should only be about one coffee shop.
 
-Any constraints (unique, ordering),
+For Foreign keys, I added CASCADE to the "student" and "shop" attributes in "Visit", and
+the "visit" attribute in "Reviews". If a student or shop is deleted, the visits attached to
+them will then be deleted, and if any visits are deleted, reviews attached to those visits
+will also be deleted.
+
+3. Any constraints (unique, ordering),
+I added a unique restraint to the "Visit" class, so that a student can only have one visit per shop per day.
+I also made it so that the visits will automatically be ordered by the date visited.
 
 
-
-How you seeded test data.
-
-Keep this as a brief running log, same spirit as A2.
-
-I recommend organizing your text from this point of time to impart readability.
-In the ReadMe.md, insert the ER diagram so that it is visible on your repo's homepage.
+4. How you seeded test data.
+I used the Admin panel to seed the test data, using the add/edit options to add the objects, and test out the
+FKs I added.
