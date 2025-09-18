@@ -21,6 +21,12 @@ class Visit(models.Model):
     visit_date = models.DateField()
     study_duration = models.IntegerField(default=0)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['student', 'shop', 'visit_date'], name='unique_visit_date')
+        ]
+        ordering = ['visit_date']
+
 class Review(models.Model):
     visit = models.ForeignKey(Visit, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0) # on a scale of 1 to 5
