@@ -10,7 +10,7 @@ class Student(models.Model):
     major = models.CharField(max_length=100, blank=True)
 
 class CoffeeShop(models.Model):
-    shop_id = models.AutoField(primary_key=True)
+    shop = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=200)
     capacity = models.IntegerField(default=0)
