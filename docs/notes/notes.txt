@@ -39,9 +39,9 @@ because a coffee shop can have multiple reviews but not the other way around. An
 Visits has a one-to-one relationship with Reviews because each visit should only have one
 review, and each review should only be about one coffee shop.
 
-For Foreign keys, I added CASCADE to the "student" and "shop" attributes in "Visit", and
+For Foreign keys, I added PROTECT to the "student" and "shop" attributes in "Visit", and CASCADE to
 the "visit" attribute in "Reviews". If a student or shop is deleted, the visits attached to
-them will then be deleted, and if any visits are deleted, reviews attached to those visits
+them will still exist, and if any visits are deleted, reviews attached to those visits
 will also be deleted.
 
 3. Any constraints (unique, ordering),
