@@ -1,0 +1,16 @@
+<h2>Coffee Shop List</h2>
+
+<ul>
+
+    {% for coffeeshop_for_loop in coffeeshop_list_html %}
+
+        <li>
+            <a href=""> {{ coffeeshop_for_loop }}</a>
+        </li>
+
+    {%  empty %}
+
+        <li>No coffee shops yet!</li>
+
+    {% endfor %}
+</ul>
