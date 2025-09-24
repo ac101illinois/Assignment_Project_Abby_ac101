@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app'
+    'students'
 ]
 
 MIDDLEWARE = [
@@ -55,8 +55,11 @@ ROOT_URLCONF = 'Assignment_Project_Abby_ac101.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+
+        'DIRS': [BASE_DIR / 'templates'],
+
+        #'DIRS': [],
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

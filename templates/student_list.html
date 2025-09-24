@@ -1,0 +1,16 @@
+<h2>Student List</h2>
+
+<ul>
+
+    {% for student_for_loop in student_list_html %}
+
+        <li>
+            <a href=""> {{ student_for_loop }}</a>
+        </li>
+
+    {%  empty %}
+
+        <li>No students yet!</li>
+
+    {% endfor %}
+</ul>

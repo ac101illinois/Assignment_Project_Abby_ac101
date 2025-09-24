@@ -37,8 +37,8 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('visit_date', models.DateField()),
                 ('study_duration', models.IntegerField(default=0)),
-                ('shop', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.coffeeshop')),
-                ('student', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.student')),
+                ('shop', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='students.coffeeshop')),
+                ('student', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='students.student')),
             ],
         ),
         migrations.CreateModel(
@@ -47,7 +47,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('rating', models.IntegerField(default=0)),
                 ('comment', models.TextField(blank=True)),
-                ('visit', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.visit')),
+                ('visit', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='students.visit')),
             ],
         ),
     ]
