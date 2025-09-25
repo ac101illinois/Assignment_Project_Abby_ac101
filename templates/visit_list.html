@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>All Visits</h2>
+
+<ul>
+    {% for visit in visits %}
+        <li>{{ visit.student.first_name }} {{ visit.student.last_name }} — {{ visit.coffee_shop.name }} on {{ visit.visit_date }}</li>
+    {% empty %}
+        <li><em>No visits found.</em></li>
+    {% endfor %}
+</ul>
+{% endblock %}
