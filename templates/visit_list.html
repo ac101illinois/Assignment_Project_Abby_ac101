@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
+{% block title %}All Visits{% endblock %}
+{% block page_title %}All Visits{% endblock %}
+
 {% block content %}
-
-<h2>All Visits</h2>
-
 <ul>
     {% for visit in visits %}
         <li>{{ visit.student.first_name }} {{ visit.student.last_name }} — {{ visit.coffee_shop.name }} on {{ visit.visit_date }}</li>

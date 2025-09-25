@@ -13,7 +13,7 @@ from .models import Student, CoffeeShop, Visit
 #HttpResponse Version
 def student_list_view(request):
     student_list_query = Student.objects.all()
-    template = loader.get_template('visit_list.html')
+    template = loader.get_template('student_list.html')
 
     context = {'students' : student_list_query}
     output = template.render(context)
@@ -31,5 +31,5 @@ class VisitListView(View):
     def get(self, request):
         visits = Visit.objects.all()
         return render(request, "visit_list.html", {
-            "visits": visits
+            "visit_list_html": Visit.objects.all()
         })
