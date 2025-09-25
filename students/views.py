@@ -1,7 +1,7 @@
 from django.contrib.admindocs.views import ViewDetailView
 from django.views import View
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 
 # Create your views here.
 from django.http import HttpResponse
@@ -27,9 +27,7 @@ def coffeeshop_list_render(request):
     return render(request, 'coffeeshop_list.html', {'coffeeshops' : coffeeshops})
 
 #List View
-class VisitListView(View):
-    def get(self, request):
-        visits = Visit.objects.all()
-        return render(request, "visit_list.html", {
-            "visit_list_html": Visit.objects.all()
-        })
+class VisitListView(ListView):
+    model = Visit
+    template_name = 'visit_list.html'
+    context_object_name = 'visit_list'
