@@ -41,3 +41,20 @@ Review
 Unique constraint - A student can only have one visit to one coffee shop per day
 
 Ordering - The visit dates are automatically ordered in ascending order
+
+Assignment 4:
+
+In assignment four, I practiced making the views we learned in week 4. I made three
+views in total: a HttpResponse for a student list, render for a coffeeshop list, and 
+a List View for a list of all the visits.
+
+After creating the views, I made html files for each one. I made a base.html file, and
+extended it for each view file. For the student, coffeeshop, and visit files, a loop through
+the list of objects and list them one by one. If no data is present, the webpage output says
+there is no data yet.
+
+After that, I made the url patterns for each view and tested opening each page. Each time
+I was successful.
+
+Future goals include loading data for each view, as well as creating a Detail View for the
+List View, so I can click on each visit and get indepth information for each one.

@@ -52,3 +52,19 @@ I also made it so that the visits will automatically be ordered by the date visi
 4. How you seeded test data.
 I used the Admin panel to seed the test data, using the add/edit options to add the objects, and test out the
 FKs I added.
+
+Assignment #4
+1. why you wrote two views
+I wrote 3 different views due to the requirments of the assignment and presentation. I wrote a HttpResponse view
+and a render view to practice with each and see how both differ in code.
+
+2. what’s different between HttpResponse and render
+A HttpResponse takes in a user request and sends raw output back to the user, without a template.
+A render includes loading a template and context and filling it with the content the user is asking for.
+
+
+3. any URL/template decisions you made.
+For my templates, and made them all equal the html files for each view. With the url patterns, each path maps a
+name for the site and links it the view I made for it, for example:
+path('coffeeshops/', coffeeshop_list_render) --> the name 'coffeeshops' is the name for the site, and links it
+with the coffee shop render view I made for it.
