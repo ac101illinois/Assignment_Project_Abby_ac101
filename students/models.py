@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.validators import MinValueValidator, MaxValueValidator
 # Create your models here.
 
 class Student(models.Model):
@@ -38,8 +38,15 @@ class Visit(models.Model):
         return f"{self.student} visited {self.shop} on {self.visit_date}"
 
 class Review(models.Model):
+    rating_choices = [
+        (1, "1 star"),
+        (2, "2 stars"),
+        (3, "3 stars"),
+        (4, "4 stars"),
+        (5, "5 stars"),
+    ]
     visit = models.ForeignKey(Visit, on_delete=models.CASCADE)
-    rating = models.IntegerField(default=0) # on a scale of 1 to 5
+    rating = models.IntegerField(choices=rating_choices)
     comment = models.TextField(blank=True)
 
     def __str__(self):
