@@ -58,3 +58,15 @@ I was successful.
 
 Future goals include loading data for each view, as well as creating a Detail View for the
 List View, so I can click on each visit and get indepth information for each one.
+
+Assignment #5:
+In this assignment, I did something very similar to last week's assignment. First,
+I created three class-based views. I made a base View for students, a generic ListView
+for the reviews in the app, and finally a DetailView for each of the students.
+
+After creating these views, I refactored their urls, and created their templates as
+extensions of the preexisting base template. After loading sample data, I tested each of
+these views out and was successful in opening each one.
+
+Future goals I have is to make the webpages prettier with CSS and make it so each Student
+in the list leads to their individual DetailView.

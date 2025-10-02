@@ -68,3 +68,21 @@ For my templates, and made them all equal the html files for each view. With the
 name for the site and links it the view I made for it, for example:
 path('coffeeshops/', coffeeshop_list_render) --> the name 'coffeeshops' is the name for the site, and links it
 with the coffee shop render view I made for it.
+
+Assignment #5:
+1. Difference between base CBVs and generic CBVs.
+Base CBVs are inherited from Django's View class, and require the Http method using commands like .get() in
+order to render the view. Generic CBVs are inherited from built-in views like ListView and DetailView.
+Because they are built in, they require less code. One only needs to define the model, template and context
+in order to create it.
+
+2. Why generic views reduce boilerplate.
+Generic views reduce the boilerplate because it requires less code and less information to be passed through.
+Generic views are inherited from built-in views, so once the specific view is put in, a lot of the information
+is filled in automatically.
+
+3. Why refactoring URLs improves maintainability.
+It improves the maintainability because if you refactor the URLS to the app urls.py as opposed to the project
+urls.py, you are allowing the urls to be self-contained within the app as opposed to the project as a whole.
+This allows the apps in the project to maintain their own urls and keep everything structured. It also makes
+each page easier to navigate if they are within their own apps.
