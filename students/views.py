@@ -56,7 +56,7 @@ class StudentDetailView(DetailView):
 
         return render(
             request,
-            'students/student_detail.html',
+            'student_detail.html',
             {
                 'student_var_for_looping': student,
                 'visits_var_for_looping': visits,
