@@ -1,0 +1,16 @@
+{% block title %}Student Detail{% endblock %}
+
+{% block content %}
+  <h2>{{ student_var_for_looping.first_name }} {{ student_var_for_looping.last_name }}</h2>
+  <p><strong>Major:</strong> {{ student_var_for_looping.major }}</p>
+  <p><strong>Campus Address:</strong> {{ student_var_for_looping.campus_address }}</p>
+
+  <h3>Visits</h3>
+  <ul>
+    {% for visit in visits_var_for_looping %}
+      <li>{{ visit.shop.name }} on {{ visit.visit_date }} ({{ visit.study_duration }} minutes)</li>
+    {% empty %}
+      <li>No visits found.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

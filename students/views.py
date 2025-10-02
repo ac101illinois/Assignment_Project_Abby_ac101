@@ -7,7 +7,7 @@ from django.views.generic import DetailView, ListView
 from django.http import HttpResponse
 from django.template import loader
 
-from .models import Student, CoffeeShop, Visit
+from .models import Student, CoffeeShop, Visit, Review
 
 
 #HttpResponse Version
@@ -31,3 +31,34 @@ class VisitListView(ListView):
     model = Visit
     template_name = 'visit_list.html'
     context_object_name = 'visit_list'
+
+#Base View
+class StudentBaseView(View):
+    def get(self, request):
+        students = Student.objects.all()
+        # Render template with context
+        return render(request, "student_list.html", {
+            "students": students
+        })
+
+#Generic View
+class ReviewListView(ListView):
+    model = Review
+    template_name = 'review_list.html'
+    context_object_name = 'review_list_html'
+
+
+#Third View - Detail View
+class StudentDetailView(DetailView):
+    def get(self, request, primary_key):
+        student = get_object_or_404(Student, pk=primary_key)
+        visits = student.visit_set.all()  # default related name
+
+        return render(
+            request,
+            'students/student_detail.html',
+            {
+                'student_var_for_looping': student,
+                'visits_var_for_looping': visits,
+            }
+        )

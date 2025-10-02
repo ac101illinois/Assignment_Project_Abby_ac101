@@ -1,0 +1,17 @@
+{% block title %}Reviews List{% endblock %}
+
+{% block content %}
+  <ul>
+    {% for r in reviews %}
+      <li>
+        {{ r.visit.student }} reviewed {{ r.visit.shop.name }} on {{ r.visit.visit_date }} <br>
+        Rating: {{ r.rating }}/5 <br>
+        {% if r.comment %}
+          Comment: "{{ r.comment }}"
+        {% endif %}
+      </li>
+    {% empty %}
+      <li>No reviews yet.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
