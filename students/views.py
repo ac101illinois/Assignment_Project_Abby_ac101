@@ -32,6 +32,19 @@ class VisitListView(ListView):
     template_name = 'visit_list.html'
     context_object_name = 'visit_list'
 
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        q = self.request.GET.get("q")
+
+        if q:
+            search_qs = Visit.objects.filter(student__first_name__icontains=q)
+        else:
+            search_qs = None
+
+        ctx["q"] = q
+        ctx["search_results"] = search_qs
+        return ctx
+
 #Base View
 class StudentBaseView(View):
     def get(self, request):

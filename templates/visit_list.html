@@ -12,3 +12,45 @@
     {% endfor %}
 </ul>
 {% endblock %}
+
+{% block send_search %}
+
+  <form method="get" class="row g-2 mb-3">
+
+    <div class="col-auto">
+
+      <input type="search" name="q" value="{{ q }}" class="form-control"
+             placeholder="Search by first name">
+
+    </div>
+
+    <div class="col-auto">
+
+      <button class="btn btn-primary" type="submit">Search</button>
+      {% if q %}
+
+          <a class="btn btn-outline-secondary" href="{% url 'visit-list-url' %}">
+              Clear
+          </a>
+
+      {% endif %}
+    </div>
+  </form>
+
+{% endblock %}
+
+{% block filter %}
+  <p class="text-muted mb-3">
+    {{ count }} result{{ count|pluralize }}{% if q %} for “{{ q }}”{% endif %}
+  </p>
+
+  {% if q %}
+    <ul>
+      {% for s in search_results %}
+        <li><a href="{{ s.get_absolute_url }}">{{ s }}</a></li>
+      {% empty %}
+        <li>No students found.</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}
