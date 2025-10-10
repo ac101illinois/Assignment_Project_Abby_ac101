@@ -4,53 +4,68 @@
 {% block page_title %}All Visits{% endblock %}
 
 {% block content %}
-<ul>
+  <!-- Full list at the top -->
+  <h3>All Visits</h3>
+  <ul>
     {% for visit in visit_list %}
-        <li>{{ visit.student.first_name }} {{ visit.student.last_name }} — {{ visit.shop.name }} on {{ visit.visit_date }}</li>
+      <li>
+        {{ visit.student.first_name }} {{ visit.student.last_name }}
+        — {{ visit.shop.name }} on {{ visit.visit_date }}
+      </li>
     {% empty %}
-        <li><em>No visits found.</em></li>
+      <li><em>No visits found.</em></li>
     {% endfor %}
-</ul>
-{% endblock %}
+  </ul>
 
-{% block send_search %}
-
+  <!-- Search form under it -->
   <form method="get" class="row g-2 mb-3">
-
     <div class="col-auto">
-
       <input type="search" name="q" value="{{ q }}" class="form-control"
              placeholder="Search by first name">
-
     </div>
-
     <div class="col-auto">
-
       <button class="btn btn-primary" type="submit">Search</button>
       {% if q %}
-
-          <a class="btn btn-outline-secondary" href="{% url 'visit-list-url' %}">
-              Clear
-          </a>
-
+        <a class="btn btn-outline-secondary" href="{{ request.path }}">Clear</a>
       {% endif %}
     </div>
   </form>
 
-{% endblock %}
-
-{% block filter %}
-  <p class="text-muted mb-3">
-    {{ count }} result{{ count|pluralize }}{% if q %} for “{{ q }}”{% endif %}
-  </p>
-
+  <!-- Filtered Results  -->
   {% if q %}
+  {% if filtered_visits %}
+    <p class="text-muted">
+      {{ filtered_count }} result{{ filtered_count|pluralize }} for "{{ q }}"
+    </p>
     <ul>
-      {% for s in search_results %}
-        <li><a href="{{ s.get_absolute_url }}">{{ s }}</a></li>
-      {% empty %}
-        <li>No students found.</li>
+      {% for visit in filtered_visits %}
+        <li>
+          {{ visit.student.first_name }} {{ visit.student.last_name }}
+          — {{ visit.shop.name }} on {{ visit.visit_date }}
+        </li>
+        <p class="text-muted"></p>
       {% endfor %}
     </ul>
+  {% else %}
+    <p class="text-muted">No results found for “{{ q }}”.</p>
   {% endif %}
+{% endif %}
+
+  <!-- Aggregations in a separate block -->
+
+  <p><strong>Total visits:</strong> {{ total_visits }}</p>
+
+  <h5>Visits per Student</h5>
+  <ul>
+    {% for g in visits_per_student %}
+      <li>{{ g.student__first_name }} {{ g.student__last_name }} — {{ g.count }}</li>
+    {% endfor %}
+  </ul>
+
+  <h5>Visits per Coffee Shop</h5>
+  <ul>
+    {% for g in visits_per_shop %}
+      <li>{{ g.shop__name }} — {{ g.count }}</li>
+    {% endfor %}
+  </ul>
 {% endblock %}

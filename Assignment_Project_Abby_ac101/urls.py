@@ -17,11 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from students.views import (student_list_view, coffeeshop_list_render, VisitListView, StudentBaseView,
-                            ReviewListView, StudentDetailView)
-
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('students/', include("students.urls", namespace="students")),
+    path('students/', include('students.urls', namespace='students')),
 ]
