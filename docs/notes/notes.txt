@@ -86,3 +86,18 @@ It improves the maintainability because if you refactor the URLS to the app urls
 urls.py, you are allowing the urls to be self-contained within the app as opposed to the project as a whole.
 This allows the apps in the project to maintain their own urls and keep everything structured. It also makes
 each page easier to navigate if they are within their own apps.
+
+Assignment #6:
+- Filtering is when a user puts in a query and gets information back that meets certain expectations. It also
+filters through all the data (in my case list of visits) and brings back the information that meets the query
+searched.
+- The filter I used for this assignment is one to return the visitations that match the first name queried in the
+search bar. For future versions of my view, I am going to add last name, date and coffee shop as things a user
+can query so it is a more flexible search bar
+- Aggregation, instead of filtering the data, summarizes it. It calculates certain numbers like totals and averages
+(in my case, totals of each visits per student and coffee shop. It shows the count along with the name of the item
+it is summarizing.
+- My first summary is visits per student. This summarizes each student name and then shows how many coffee shop
+visits they have individually made
+- My second aggregation is visits per coffee shop. This summarizes each coffee shop name and shows how many visits
+have been made to it.
