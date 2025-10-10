@@ -70,3 +70,16 @@ these views out and was successful in opening each one.
 
 Future goals I have is to make the webpages prettier with CSS and make it so each Student
 in the list leads to their individual DetailView.
+
+Assignment #6:
+In this assignment, I added a search/filter function to my Visit ListView in views.py.
+This makes it possible to search for the first name of a student and be able to pull up
+all their visits. This filters by first name. I make the visit_list template show the 
+complete list of visits, the search bar along with a clear button.
+
+I also created aggregations to make summaries to count visits per student and visits per
+each coffee shop and had these show up in the template at the bottom as well.
+
+The only aspect of this assignment I was not able to complete was to successfully count 
+how many queries show up when you search. It automatically shows "none found" no matter
+what happens. I will seek help to fix this next week.
