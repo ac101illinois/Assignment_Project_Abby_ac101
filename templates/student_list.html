@@ -1,22 +1,18 @@
 {% extends "base.html" %}
 
-{% block title %}Students List{% endblock %}
+{% block title %}Student List{% endblock %}
+{% block page_title %}Student List{% endblock %}
 
-{%  block content %}
-
-<ul>
-
-    {% for student_for_loop in students %}
-
-        <li>
-            <a href=""> {{ student_for_loop }}</a>
-        </li>
-
-    {%  empty %}
-
+{% block content %}
+<div class="card">
+  <div class="card__body">
+    <ul class="list">
+      {% for student_for_loop in students %}
+        <li><a href="#">{{ student_for_loop }}</a></li>
+      {% empty %}
         <li>No students yet!</li>
-
-    {% endfor %}
-</ul>
-
-{%  endblock %}
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

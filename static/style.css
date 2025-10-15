@@ -1,0 +1,21 @@
+/* Custom color theme */
+:root {
+  --primary-color: #4f46e5; /* example purple */
+  --secondary-color: #f59e0b; /* example orange */
+  --text-color: #111827;
+}
+
+/* Apply font and text color site-wide */
+body {
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  color: var(--text-color);
+  background-color: #f9fafb;
+}
+
+/* Header styling */
+.site-header {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
