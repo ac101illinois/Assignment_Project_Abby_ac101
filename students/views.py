@@ -7,6 +7,7 @@ from django.db.models import Count
 # Create your views here.
 from django.http import HttpResponse
 from django.template import loader
+from io import BytesIO
 
 from .models import Student, CoffeeShop, Visit, Review
 
@@ -90,3 +91,53 @@ class StudentDetailView(DetailView):
                 'visits_var_for_looping': visits,
             }
         )
+
+
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+
+#Chart for visits per each student
+def student_visits_chart(request):
+
+    data = (
+        Student.objects
+        .annotate(visit_count=Count("visit"))
+        .order_by("first_name")
+    )
+
+    labels = [f"{s.first_name} {s.last_name}" for s in data]
+    counts = [s.visit_count for s in data]
+
+    fig, ax = plt.subplots(figsize=(6, 3), dpi=150)
+
+    ax.bar(labels, counts, color="#00b6bd")
+
+    ax.set_title("Coffee Shop Visits per Student", fontsize=10, color="#00b6bd")
+    ax.set_xlabel("Student", fontsize=8)
+    ax.set_ylabel("Visits", fontsize=8)
+    ax.tick_params(axis="x", rotation=45, labelsize=8)
+    ax.tick_params(axis="y", labelsize=8)
+
+    fig.tight_layout()
+
+    buf = BytesIO()
+    fig.savefig(buf, format="png")
+    plt.close(fig)
+    buf.seek(0)
+
+    return HttpResponse(buf.getvalue(), content_type="image/png")
+
+def analytics(request):
+    visits_per_student = (
+        Visit.objects
+        .values("student__first_name", "student__last_name")
+        .annotate(count=Count("id"))
+        .order_by("-count")
+    )
+
+    context = {
+        "visits_per_student": visits_per_student
+    }
+
+    return render(request, "analytics.html", context)

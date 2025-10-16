@@ -2,16 +2,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{% block title %}My Site{% endblock %}</title>
+    <title>{% block title %}CoffeeSpot{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
 
-<h1>{% block page_title %}{% endblock %}</h1>
+    <header class="site-header">
+        <div class="header-container">
+            <div class="brand">
+                <img src="{% static 'coffee_icon.png' %}" alt="Logo" class="logo">
+                <h1 class="site-title">CoffeeSpot</h1>
+            </div>
+            <nav class="nav">
+                <a href="/">Home</a>
+                <a href="/students/">Students</a>
+                <a href="/map/">Map</a>
+            </nav>
+        </div>
+    </header>
 
-{% block send_search %}{% endblock %}
-{% block content %}{% endblock %}
-{% block filter %}{% endblock %}
+    <h1>{% block page_title %}{% endblock %}</h1>
+
+    {% block content %}{% endblock %}
+    {% block send_search %}{% endblock %}
+    {% block filter %}{% endblock %}
 
 </body>
 </html>

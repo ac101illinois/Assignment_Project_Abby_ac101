@@ -7,6 +7,8 @@ from .views import (
     StudentBaseView,
     ReviewListView,
     StudentDetailView,
+    analytics,
+    student_visits_chart
 )
 
 app_name = "students"
@@ -18,4 +20,6 @@ urlpatterns = [
     path("base/", StudentBaseView.as_view(), name="student-base"),
     path("reviews/", ReviewListView.as_view(), name="review-list"),
     path("<int:primary_key>/", StudentDetailView.as_view(), name="student-detail"),
+    path("analytics/", analytics, name="analytics_page"),
+    path("charts/student_visits.png", student_visits_chart, name="student_visits_chart"),
 ]
