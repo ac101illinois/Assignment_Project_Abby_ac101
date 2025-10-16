@@ -101,3 +101,16 @@ it is summarizing.
 visits they have individually made
 - My second aggregation is visits per coffee shop. This summarizes each coffee shop name and shows how many visits
 have been made to it.
+
+Assignment #7:
+- For static files in Django, specifically in the urls.py file, STATICFILES_DIRS and STATIC_URL are used to
+access the static file, in my case the style.css file, so that the CSS customizations will show up when I try
+to load them into my base.html fie.
+- In order to load them in my base.html file, you have to add this line at the top of the file: {% laod static %}.
+This loads the static files into your base template, and this way, the rest of your templates will have the
+customizations if they extend the base.html file.
+- The chart I created is a bar chart showcasing the number of coffee shop visits per each student. This is the
+same for my aggregation at the bottom of the student_list page
+- I used the ORM aggregation "Count" in order to count the number of visits per student.
+- BytesIO is a class that generates images (png). I used this to generate the chart for my analytics page
+- The tight_layout() function adjusts subplot spacing so nothing overlaps in your visualizations.
