@@ -83,3 +83,16 @@ each coffee shop and had these show up in the template at the bottom as well.
 The only aspect of this assignment I was not able to complete was to successfully count 
 how many queries show up when you search. It automatically shows "none found" no matter
 what happens. I will seek help to fix this next week.
+
+Assignment #7:
+In this assignment, I played around with CSS files, created graphs for an analytics page
+and summarized data as well using aggregation.
+
+For my style.css, I added light brown and off-white colors for the background and header,
+as well as added a logo for the website. I also played around with fonts and plan to
+recolor my fonts.
+
+I also added a graph to a new analytics page to showcase how many visits per each student.
+For an added touch, I colored the graph the same teal that is in the logo. The summary
+shows the same information at the bottom of the page. To make my chart, I used
+matplotlib.
