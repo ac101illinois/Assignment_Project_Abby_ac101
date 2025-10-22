@@ -10,6 +10,7 @@ from django.template import loader
 from io import BytesIO
 
 from .models import Student, CoffeeShop, Visit, Review
+from .forms import ReviewForm
 
 
 #HttpResponse Version
@@ -141,3 +142,14 @@ def analytics(request):
     }
 
     return render(request, "analytics.html", context)
+
+def review_view(request):
+    if request.method == "POST":
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            print("Name:", data["name"], "Review:", data["review"])
+    else:
+        form = ReviewForm()
+
+    return render(request, "students/review.html", {"form": form})
