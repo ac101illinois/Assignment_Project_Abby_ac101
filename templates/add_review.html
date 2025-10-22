@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Submit Coffee Review{% endblock %}
+
+{% block page_title %}Submit a Coffee Shop Review{% endblock %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit Review</button>
+</form>
+
+<a href="{% url 'students:review-list' %}">Back to Reviews</a>
+{% endblock %}

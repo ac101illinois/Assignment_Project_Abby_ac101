@@ -1,7 +1,7 @@
 from django.contrib.admindocs.views import ViewDetailView
 from django.views import View
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, CreateView
 from django.db.models import Count
 
 # Create your views here.
@@ -143,6 +143,8 @@ def analytics(request):
 
     return render(request, "analytics.html", context)
 
+#Assignment 8, Function-based view that handles post and get
+
 def review_view(request):
     if request.method == "POST":
         form = ReviewForm(request.POST)
@@ -152,4 +154,13 @@ def review_view(request):
     else:
         form = ReviewForm()
 
-    return render(request, "students/review.html", {"form": form})
+    return render(request, "students/add_review.html", {"form": form})
+
+#Assignment 8: Generic class based view
+from django.urls import reverse_lazy
+class ReviewCreateView(CreateView):
+    model = Review
+    form_class = ReviewForm
+    template_name = "add_review.html"
+    success_url = reverse_lazy('students:review-list')
+

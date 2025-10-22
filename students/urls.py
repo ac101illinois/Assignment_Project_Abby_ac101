@@ -8,7 +8,8 @@ from .views import (
     ReviewListView,
     StudentDetailView,
     analytics,
-    student_visits_chart
+    student_visits_chart,
+    ReviewCreateView
 )
 
 app_name = "students"
@@ -22,4 +23,5 @@ urlpatterns = [
     path("<int:primary_key>/", StudentDetailView.as_view(), name="student-detail"),
     path("analytics/", analytics, name="analytics_page"),
     path("charts/student_visits.png", student_visits_chart, name="student_visits_chart"),
+    path("reviews/add/", ReviewCreateView.as_view(), name="review-add")
 ]
