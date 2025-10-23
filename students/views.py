@@ -1,6 +1,6 @@
 from django.contrib.admindocs.views import ViewDetailView
 from django.views import View
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import DetailView, ListView, CreateView
 from django.db.models import Count
 
@@ -151,13 +151,15 @@ def review_view(request):
         if form.is_valid():
             data = form.cleaned_data
             print("Name:", data["name"], "Review:", data["review"])
+            return redirect("students:review-list")
     else:
         form = ReviewForm()
-
     return render(request, "students/add_review.html", {"form": form})
+
 
 #Assignment 8: Generic class based view
 from django.urls import reverse_lazy
+
 class ReviewCreateView(CreateView):
     model = Review
     form_class = ReviewForm
