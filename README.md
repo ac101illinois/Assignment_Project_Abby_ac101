@@ -96,3 +96,13 @@ I also added a graph to a new analytics page to showcase how many visits per eac
 For an added touch, I colored the graph the same teal that is in the logo. The summary
 shows the same information at the bottom of the page. To make my chart, I used
 matplotlib.
+
+Assignment #8:
+1. GET() is used to search and retrieve information, while POST() is used to update or
+add information. For example, I use get when searching for coffeeshop visits, and use
+post when adding a coffee shop review to the site.
+2. Function based views are functions that manually handle the view method (post or get),
+however the user must write more code when they want to create multiple views.
+3. Class based views are extensions of generic django views, which means the user does
+not have to write a lot of code, however it does not work well if a user is trying to
+create a more complex view.
