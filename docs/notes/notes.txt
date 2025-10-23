@@ -114,3 +114,18 @@ same for my aggregation at the bottom of the student_list page
 - I used the ORM aggregation "Count" in order to count the number of visits per student.
 - BytesIO is a class that generates images (png). I used this to generate the chart for my analytics page
 - The tight_layout() function adjusts subplot spacing so nothing overlaps in your visualizations.
+
+Assignment #8:
+- A CSRF (Cross-Site Request Forgery) is an attack on a website when a malicious user pretends to be
+ an authorized user.
+- a csrf token is used to protect the website within the html file. This ensures the person using the
+website is an authorized user and not a maliscious website/person trying to attack it.
+- Some key steps in the form submission process is the user sending a post request, the form being validated,
+the form being saved if it is or rendered again with error messages, and then afterward the user is redirected
+to the previous page or given a success page
+- FBVs are more simple and allow the user to make specific customizations, however it requires repetitive code
+since there are no generic views (like CBV)
+- CBVs include less/reusable code and are built-in views within django that use inheritance, however they do not
+work well with complex views
+- GET is used when a user wants to search/retrieve information from the website, q= in the url
+- POST is used to update/change data within a website, and requires a csrf token for security
