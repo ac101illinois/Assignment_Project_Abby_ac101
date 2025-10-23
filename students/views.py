@@ -154,7 +154,7 @@ def review_view(request):
             return redirect("students:review-list")
     else:
         form = ReviewForm()
-    return render(request, "students/add_review.html", {"form": form})
+    return render(request, "add_review.html", {"form": form})
 
 
 #Assignment 8: Generic class based view
