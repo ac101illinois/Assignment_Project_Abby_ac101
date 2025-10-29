@@ -10,7 +10,9 @@ from .views import (
     analytics,
     student_visits_chart,
     ReviewCreateView,
-    review_view
+    review_view,
+    api_visits,
+    CoffeeVisitAPI
 )
 
 app_name = "students"
@@ -26,5 +28,7 @@ urlpatterns = [
     path("charts/student_visits.png", student_visits_chart, name="student_visits_chart"),
     path("reviews/add/cbv", ReviewCreateView.as_view(), name="review-add-cbv"),
     path("reviews/add/fbv", review_view, name="review-add-fbv"),
+    path("api/visits/", api_visits, name="visits_api"),
+    path("api/shops/visits/", CoffeeVisitAPI.as_view(), name="coffee_shop_visit_api"),
 
 ]

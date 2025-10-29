@@ -150,7 +150,7 @@ def review_view(request):
         form = ReviewForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            print("Name:", data["name"], "Review:", data["review"])
+            print("Name:", data["name"], "Review:", data["comment"])
             return redirect("students:review-list")
     else:
         form = ReviewForm()
@@ -165,4 +165,38 @@ class ReviewCreateView(CreateView):
     form_class = ReviewForm
     template_name = "add_review.html"
     success_url = reverse_lazy('students:review-list')
+
+#Assignment 9: APIs and JSON
+from django.http import JsonResponse
+from django.db.models import Count, Q
+
+
+# Function based api view
+def api_visits(request):
+    visits = Visit.objects.select_related("student", "shop").all()
+    data = {
+        "count": visits.count(),
+        "results": [
+            {
+                "student": f"{v.student.first_name} {v.student.last_name}",
+                "shop": v.shop.name,
+                "location": v.shop.location,
+                "visit_date": v.visit_date.strftime("%Y-%m-%d"),
+                "study_duration": v.study_duration,
+            }
+            for v in visits
+        ],
+    }
+    return JsonResponse(data)
+
+
+#class based view
+class CoffeeVisitAPI(View):
+    def get(self, request):
+        data = (
+            CoffeeShop.objects.annotate(total_visits=Count("visit"))
+            .values("name", "location", "total_visits")
+            .order_by("-total_visits")
+        )
+        return JsonResponse(list(data), safe=False)
 
