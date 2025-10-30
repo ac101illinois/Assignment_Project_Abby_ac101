@@ -248,6 +248,9 @@ def visits_chart_png(request):
     buf.seek(0)
     return HttpResponse(buf.getvalue(), content_type="image/png")
 
+def visits_chart_view(request):
+    return render(request, "visits_chart.html")
+
 def api_ping_jsonresponse(request):
     return JsonResponse({"ok": True})
 

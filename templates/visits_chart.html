@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %} Coffee Shop Visits Chart{% endblock %}
+
+{%  block content %}
+
+<h2 class="mb-3">Visits Per Coffee Shop</h2>
+  <p class="text-muted">This image is generated server-side by calling our JSON API, then plotted with matplotlib.</p>
+  <img
+    src="{% url 'students:visits_chart_png' %}"
+    alt="Visits per coffee shop chart"
+    class="img-fluid border rounded"
+  >
+
+{%  endblock %}
