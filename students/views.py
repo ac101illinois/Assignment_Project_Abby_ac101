@@ -198,29 +198,26 @@ def api_visits(request):
 class CoffeeVisitAPI(View):
     def get(self, request):
         data = (
-            CoffeeShop.objects.annotate(total_visits=Count("visit"))
+            CoffeeShop.objects.annotate(total_visits=Count("visit", distinct=True))
             .values("shop_id", "name", "location", "total_visits")
             .order_by("-total_visits")
+            .distinct()
         )
         return JsonResponse(list(data), safe=False)
 
 
 # chart view
 def visits_chart_png(request):
-    # Build absolute URL for your own API
     api_url = request.build_absolute_uri(reverse("students:coffee_shop_visit_api"))
 
-    # Fetch JSON from your API
     with urllib.request.urlopen(api_url) as resp:
         payload = json.load(resp)
 
-    rows = payload  # API returns a list of shops
+    rows = payload
 
-    # Extract labels and counts
     labels = [r["name"] for r in rows]
     all_counts = [r["total_visits"] for r in rows]
 
-    # Compute "long visits" per shop (study_duration >= 60 mins)
     active_counts = []
     for r in rows:
         shop_id = r["shop_id"]
