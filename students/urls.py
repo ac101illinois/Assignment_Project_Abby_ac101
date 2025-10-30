@@ -12,7 +12,10 @@ from .views import (
     ReviewCreateView,
     review_view,
     api_visits,
-    CoffeeVisitAPI
+    CoffeeVisitAPI,
+    visits_chart_png,
+    api_ping_jsonresponse,
+    api_ping_httpresponse,
 )
 
 app_name = "students"
@@ -30,5 +33,8 @@ urlpatterns = [
     path("reviews/add/fbv", review_view, name="review-add-fbv"),
     path("api/visits/", api_visits, name="visits_api"),
     path("api/shops/visits/", CoffeeVisitAPI.as_view(), name="coffee_shop_visit_api"),
+    path("visits_chart_png/", visits_chart_png, name="visits_chart_png"),
+    path("api/ping/json/", api_ping_jsonresponse, name="visits_ping_jsonresponse"),
+    path("api/ping/http/", api_ping_httpresponse, name="visits_ping_httpresponse"),
 
 ]

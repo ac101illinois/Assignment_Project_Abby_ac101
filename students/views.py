@@ -7,10 +7,14 @@ from django.db.models import Count
 # Create your views here.
 from django.http import HttpResponse
 from django.template import loader
+import io
 from io import BytesIO
 
 from .models import Student, CoffeeShop, Visit, Review
 from .forms import ReviewForm
+from django.urls import reverse
+import json
+import urllib.request
 
 
 #HttpResponse Version
@@ -195,8 +199,61 @@ class CoffeeVisitAPI(View):
     def get(self, request):
         data = (
             CoffeeShop.objects.annotate(total_visits=Count("visit"))
-            .values("name", "location", "total_visits")
+            .values("shop_id", "name", "location", "total_visits")
             .order_by("-total_visits")
         )
         return JsonResponse(list(data), safe=False)
+
+
+# chart view
+def visits_chart_png(request):
+    # Build absolute URL for your own API
+    api_url = request.build_absolute_uri(reverse("students:coffee_shop_visit_api"))
+
+    # Fetch JSON from your API
+    with urllib.request.urlopen(api_url) as resp:
+        payload = json.load(resp)
+
+    rows = payload  # API returns a list of shops
+
+    # Extract labels and counts
+    labels = [r["name"] for r in rows]
+    all_counts = [r["total_visits"] for r in rows]
+
+    # Compute "long visits" per shop (study_duration >= 60 mins)
+    active_counts = []
+    for r in rows:
+        shop_id = r["shop_id"]
+        long_visits = Visit.objects.filter(shop_id=shop_id, study_duration__gte=60).count()
+        active_counts.append(long_visits)
+
+    x = range(len(labels))
+    width = 0.4
+
+    fig, ax = plt.subplots(figsize=(6.5, 3.2), dpi=150)
+    ax.bar([i - width / 2 for i in x], all_counts, width=width, label="All Visits", color="#00b6bd")
+    ax.bar([i + width / 2 for i in x], active_counts, width=width, label="Long Visits", color="#d2b48c")
+
+    ax.set_title("Visits per Coffee Shop")
+    ax.set_ylabel("Number of Visits")
+    ax.set_xticks(list(x))
+    ax.set_xticklabels(labels, rotation=45, ha="right")
+    ax.legend()
+    fig.tight_layout()
+
+
+    buf = io.BytesIO()
+    fig.savefig(buf, format="png")
+    plt.close(fig)
+    buf.seek(0)
+    return HttpResponse(buf.getvalue(), content_type="image/png")
+
+def api_ping_jsonresponse(request):
+    return JsonResponse({"ok": True})
+
+
+def api_ping_httpresponse(request):
+    payload = json.dumps({"ok": True})
+    payload2 = json.loads(payload)
+    return HttpResponse(payload2, content_type="application/json")
 
