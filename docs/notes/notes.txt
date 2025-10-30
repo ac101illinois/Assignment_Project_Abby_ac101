@@ -129,3 +129,11 @@ since there are no generic views (like CBV)
 work well with complex views
 - GET is used when a user wants to search/retrieve information from the website, q= in the url
 - POST is used to update/change data within a website, and requires a csrf token for security
+
+Assignment #9:
+1. A JSON api is an endpoint which takes in a request and returns a formatted json response
+2. Jsonresponses automatically serialize the data, and httpresponses require manually serializing the data, which
+must be sent as a specified MIME type
+3. My chart shows the amount of visits made to each coffee shop compared to the amount of long visits (over 60
+minutes). The flow starts with my charts_visit_png view as the url path to the api, then fetches the json, counts
+the amount of visits, creates the chart and then returns it as a png image.

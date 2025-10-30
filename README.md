@@ -106,3 +106,10 @@ however the user must write more code when they want to create multiple views.
 3. Class based views are extensions of generic django views, which means the user does
 not have to write a lot of code, however it does not work well if a user is trying to
 create a more complex view.
+
+Assignment #9:
+1. My first api endpoint is function based, and it returns a list of each coffee shop
+visit along with a count of how many visits it had in total
+2. My second api endpoint is class based, and it returns a list of aggregated data,
+showing the total visits made at each coffee shop
+
