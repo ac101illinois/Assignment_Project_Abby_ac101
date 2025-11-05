@@ -259,9 +259,8 @@ def api_ping_httpresponse(request):
     return HttpResponse(payload2, content_type="application/json")
 
 class MapNow(View):
-    def get(self, request):  # fixed 'requesy' → 'request'
-        query = request.GET.get("q", "Champaign, IL")  # fixed 'Get' → 'GET'
-
+    def get(self, request):
+        query = request.GET.get("q", "Champaign, IL")
         params = {
             "q": query,
             "format": "json",
@@ -273,13 +272,11 @@ class MapNow(View):
                 "https://nominatim.openstreetmap.org/search",
                 params=params,
                 timeout=5,
-                headers={"User-Agent": "Django-Student-App"}  # polite to include a UA
+                headers={"User-Agent": "Django-Student-App"}
             )
-
             output_raw_all.raise_for_status()
             output_polished_all = output_raw_all.json()
 
-            # this block was indented wrong before — now it's inside the try:
             if output_polished_all:
                 top_result = output_polished_all[0]
                 output_polished_trimmed = {
@@ -292,8 +289,15 @@ class MapNow(View):
             else:
                 output_polished_trimmed = {"error": "No location found"}
 
-            return JsonResponse({"ok": True, "location": output_polished_trimmed})
+            return render(
+                request,
+                "map.html",  # ✅ template path
+                {"ok": True, "location": output_polished_trimmed, "query": query}
+            )
 
         except requests.exceptions.RequestException as e:
-            return JsonResponse({"ok": False, "error": str(e)}, status=502)
-
+            return render(
+                request,
+                "map.html",
+                {"ok": False, "error": str(e), "query": query}
+            )

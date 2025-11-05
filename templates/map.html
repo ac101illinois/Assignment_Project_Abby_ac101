@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Map Lookup{% endblock %}
+
+{% block page_title %}Find a Location{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Search for a Location</h2>
+
+    <form method="get">
+        <input type="text" name="q" placeholder="Enter a location" value="{{ request.GET.q }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <hr>
+
+    {% if ok %}
+        {% if location.error %}
+            <p><strong>{{ location.error }}</strong></p>
+        {% else %}
+            <h3>Result</h3>
+            <ul>
+                <li><strong>Name:</strong> {{ location.display_name }}</li>
+                <li><strong>Latitude:</strong> {{ location.lat }}</li>
+                <li><strong>Longitude:</strong> {{ location.lon }}</li>
+                <li><strong>Type:</strong> {{ location.type }}</li>
+                <li><strong>Importance:</strong> {{ location.importance }}</li>
+            </ul>
+        {% endif %}
+    {% elif error %}
+        <p style="color:red;">Error: {{ error }}</p>
+    {% else %}
+        <p>Enter a city, place, or address to look it up.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -39,6 +39,6 @@ urlpatterns = [
     path("charts/visits/", visits_chart_view, name="visits_chart_view"),
     path("api/ping/json/", api_ping_jsonresponse, name="visits_ping_jsonresponse"),
     path("api/ping/http/", api_ping_httpresponse, name="visits_ping_httpresponse"),
-    path("api/map/", MapNow.as_view(), name="map_now"),
+    path("api/map/", MapNow.as_view(), name="map"),
 
 ]
