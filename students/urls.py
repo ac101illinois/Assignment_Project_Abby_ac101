@@ -16,7 +16,8 @@ from .views import (
     visits_chart_png,
     api_ping_jsonresponse,
     api_ping_httpresponse,
-    visits_chart_view
+    visits_chart_view,
+    MapNow,
 )
 
 app_name = "students"
@@ -38,5 +39,6 @@ urlpatterns = [
     path("charts/visits/", visits_chart_view, name="visits_chart_view"),
     path("api/ping/json/", api_ping_jsonresponse, name="visits_ping_jsonresponse"),
     path("api/ping/http/", api_ping_httpresponse, name="visits_ping_httpresponse"),
+    path("api/map/", MapNow.as_view(), name="map_now"),
 
 ]

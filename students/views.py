@@ -15,6 +15,7 @@ from .forms import ReviewForm
 from django.urls import reverse
 import json
 import urllib.request
+import requests
 
 
 #HttpResponse Version
@@ -256,4 +257,43 @@ def api_ping_httpresponse(request):
     payload = json.dumps({"ok": True})
     payload2 = json.loads(payload)
     return HttpResponse(payload2, content_type="application/json")
+
+class MapNow(View):
+    def get(self, request):  # fixed 'requesy' → 'request'
+        query = request.GET.get("q", "Champaign, IL")  # fixed 'Get' → 'GET'
+
+        params = {
+            "q": query,
+            "format": "json",
+            "limit": 1
+        }
+
+        try:
+            output_raw_all = requests.get(
+                "https://nominatim.openstreetmap.org/search",
+                params=params,
+                timeout=5,
+                headers={"User-Agent": "Django-Student-App"}  # polite to include a UA
+            )
+
+            output_raw_all.raise_for_status()
+            output_polished_all = output_raw_all.json()
+
+            # this block was indented wrong before — now it's inside the try:
+            if output_polished_all:
+                top_result = output_polished_all[0]
+                output_polished_trimmed = {
+                    "display_name": top_result.get("display_name"),
+                    "lat": top_result.get("lat"),
+                    "lon": top_result.get("lon"),
+                    "type": top_result.get("type"),
+                    "importance": top_result.get("importance"),
+                }
+            else:
+                output_polished_trimmed = {"error": "No location found"}
+
+            return JsonResponse({"ok": True, "location": output_polished_trimmed})
+
+        except requests.exceptions.RequestException as e:
+            return JsonResponse({"ok": False, "error": str(e)}, status=502)
 
