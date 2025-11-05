@@ -1,37 +1,29 @@
-{% extends "base.html" %}
-
-{% block title %}Map Lookup{% endblock %}
-
-{% block page_title %}Find a Location{% endblock %}
+{% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
-    <h2>Search for a Location</h2>
+<h2>Search for Coffee Shops</h2>
 
-    <form method="get">
-        <input type="text" name="q" placeholder="Enter a location" value="{{ request.GET.q }}">
-        <button type="submit">Search</button>
-    </form>
+<form method="get" action="">
+    <input type="text" name="q" value="{{ query }}" placeholder="Enter area or neighborhood">
+    <button type="submit">Search</button>
+</form>
 
-    <hr>
-
-    {% if ok %}
-        {% if location.error %}
-            <p><strong>{{ location.error }}</strong></p>
-        {% else %}
-            <h3>Result</h3>
-            <ul>
-                <li><strong>Name:</strong> {{ location.display_name }}</li>
-                <li><strong>Latitude:</strong> {{ location.lat }}</li>
-                <li><strong>Longitude:</strong> {{ location.lon }}</li>
-                <li><strong>Type:</strong> {{ location.type }}</li>
-                <li><strong>Importance:</strong> {{ location.importance }}</li>
-            </ul>
-        {% endif %}
-    {% elif error %}
-        <p style="color:red;">Error: {{ error }}</p>
-    {% else %}
-        <p>Enter a city, place, or address to look it up.</p>
-    {% endif %}
-</div>
+{% if ok %}
+    <h3>Results for "{{ query }}"</h3>
+    <ul>
+        {% for loc in locations %}
+            {% if loc.error %}
+                <li>{{ loc.error }}</li>
+            {% else %}
+                <li>
+                    <strong>{{ loc.display_name }}</strong><br>
+                    Latitude: {{ loc.lat }}, Longitude: {{ loc.lon }}<br>
+                    Type: {{ loc.type }}, Importance: {{ loc.importance }}
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Error: {{ error }}</p>
+{% endif %}
 {% endblock %}

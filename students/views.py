@@ -260,44 +260,44 @@ def api_ping_httpresponse(request):
 
 class MapNow(View):
     def get(self, request):
-        query = request.GET.get("q", "Champaign, IL")
+        query = request.GET.get("q", "")  # user input
+        search_term = f"cafe {query} Champaign, IL"
+
         params = {
-            "q": query,
+            "q": search_term,
             "format": "json",
-            "limit": 1
+            "limit": 5
         }
 
+        context = {"query": query}
+
         try:
+            # Make request to Nominatim
             output_raw_all = requests.get(
                 "https://nominatim.openstreetmap.org/search",
                 params=params,
                 timeout=5,
-                headers={"User-Agent": "Django-Student-App"}
+                headers={"User-Agent": "Django-Student-App"}  # polite UA
             )
             output_raw_all.raise_for_status()
+
             output_polished_all = output_raw_all.json()
 
             if output_polished_all:
-                top_result = output_polished_all[0]
-                output_polished_trimmed = {
-                    "display_name": top_result.get("display_name"),
-                    "lat": top_result.get("lat"),
-                    "lon": top_result.get("lon"),
-                    "type": top_result.get("type"),
-                    "importance": top_result.get("importance"),
-                }
+                output_polished_trimmed = []
+                for r in output_polished_all:
+                    output_polished_trimmed.append({
+                        "display_name": r.get("display_name"),
+                        "lat": r.get("lat"),
+                        "lon": r.get("lon"),
+                        "type": r.get("type"),
+                        "importance": r.get("importance")
+                    })
+                context.update({"ok": True, "locations": output_polished_trimmed})
             else:
-                output_polished_trimmed = {"error": "No location found"}
-
-            return render(
-                request,
-                "map.html",  # ✅ template path
-                {"ok": True, "location": output_polished_trimmed, "query": query}
-            )
+                context.update({"ok": True, "locations": [{"error": "No coffee shops found"}]})
 
         except requests.exceptions.RequestException as e:
-            return render(
-                request,
-                "map.html",
-                {"ok": False, "error": str(e), "query": query}
-            )
+            context.update({"ok": False, "error": str(e)})
+
+        return render(request, "map.html", context)
