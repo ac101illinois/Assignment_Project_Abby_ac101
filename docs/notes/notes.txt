@@ -137,3 +137,16 @@ must be sent as a specified MIME type
 3. My chart shows the amount of visits made to each coffee shop compared to the amount of long visits (over 60
 minutes). The flow starts with my charts_visit_png view as the url path to the api, then fetches the json, counts
 the amount of visits, creates the chart and then returns it as a png image.
+
+Assignment #10:
+- I picked the geocoding api called Nominatim, because it felt the most intuitive for my project. It would allow
+the user of my website to search for different coffee shops in the Champaign, IL area.
+- The fields I extracted for this api is the name of the cafe, the coordinated (latitude and longitude) and the
+type of establishment (cafe)
+-I limited the time it took to extract the data to be 5 minutes: "timeout=5", and used the raise_for_status()
+function to make sure all the checks for the data were done successfully.
+- The final JSON output displays the information from those fields I mentioned previously on the page, listed
+out. It currently shows the user's current location.
+- I noticed how searching for some of the coffee shops does not work, and I am still figuring out how to fix
+it. I figure the search bar I created is accent sensitive, but there are other establishments, like Dunkin' on
+Green Street, that is not showing up for me.
