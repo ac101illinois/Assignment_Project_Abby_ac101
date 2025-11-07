@@ -113,3 +113,8 @@ visit along with a count of how many visits it had in total
 2. My second api endpoint is class based, and it returns a list of aggregated data,
 showing the total visits made at each coffee shop
 
+Assignment #10:
+For this assignment, I used an API names Nominatim to allow the user to search 
+for different coffee shops in the Champaign area. I also built a JSON view, as well as
+an HTML template view for the page.
+

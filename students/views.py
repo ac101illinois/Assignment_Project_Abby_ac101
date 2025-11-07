@@ -258,6 +258,9 @@ def api_ping_httpresponse(request):
     payload2 = json.loads(payload)
     return HttpResponse(payload2, content_type="application/json")
 
+#Assignment 10:
+#Map View for the Html Template
+
 class MapNow(View):
     def get(self, request):
         query = request.GET.get("q", "")  # user input
@@ -272,12 +275,11 @@ class MapNow(View):
         context = {"query": query}
 
         try:
-            # Make request to Nominatim
             output_raw_all = requests.get(
                 "https://nominatim.openstreetmap.org/search",
                 params=params,
                 timeout=5,
-                headers={"User-Agent": "Django-Student-App"}  # polite UA
+                headers={"User-Agent": "Student-CoffeeSpot-App"}
             )
             output_raw_all.raise_for_status()
 
@@ -291,7 +293,6 @@ class MapNow(View):
                         "lat": r.get("lat"),
                         "lon": r.get("lon"),
                         "type": r.get("type"),
-                        "importance": r.get("importance")
                     })
                 context.update({"ok": True, "locations": output_polished_trimmed})
             else:
@@ -301,3 +302,41 @@ class MapNow(View):
             context.update({"ok": False, "error": str(e)})
 
         return render(request, "map.html", context)
+
+#View for the JSON response:
+class MapNowJsonResponse(View):
+    def get(self, request):
+        query = request.GET.get("q", "Champaign, IL")
+
+        params = {
+            "q": query,
+            "format": "json",
+            "limit": 1
+        }
+
+        try:
+            output_raw_all = requests.get(
+                "https://nominatim.openstreetmap.org/search",
+                params=params,
+                timeout=5,
+                headers={"User-Agent": "Django-Student-App"}
+            )
+
+            output_raw_all.raise_for_status()
+            output_polished_all = output_raw_all.json()
+            if output_polished_all:
+                top_result = output_polished_all[0]
+                output_polished_trimmed = {
+                    "display_name": top_result.get("display_name"),
+                    "lat": top_result.get("lat"),
+                    "lon": top_result.get("lon"),
+                    "type": top_result.get("type"),
+                    "importance": top_result.get("importance"),
+                }
+            else:
+                output_polished_trimmed = {"error": "No location found"}
+
+            return JsonResponse({"ok": True, "location": output_polished_trimmed})
+
+        except requests.exceptions.RequestException as e:
+            return JsonResponse({"ok": False, "error": str(e)}, status=502)
