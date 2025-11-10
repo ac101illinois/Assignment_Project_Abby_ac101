@@ -16,6 +16,9 @@ from django.urls import reverse
 import json
 import urllib.request
 import requests
+from datetime import datetime
+import csv
+from django.utils import timezone
 
 
 #HttpResponse Version
@@ -340,3 +343,58 @@ class MapNowJsonResponse(View):
 
         except requests.exceptions.RequestException as e:
             return JsonResponse({"ok": False, "error": str(e)}, status=502)
+
+
+#Assignment 11:
+
+def export_visits_csv(request):
+
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
+    filename = f"students_{timestamp}.csv"
+    response = HttpResponse(content_type="text/csv")
+
+    response["Content-Disposition"] = f'attachment; filename="{filename}"'
+    writer = csv.writer(response)
+
+
+    writer.writerow(["Student", "Shop", "Visit Date", "Study Duration (min)"])
+
+
+    rows = (
+        Visit.objects
+        .select_related("student", "shop")
+        .values_list("student", "shop", "visit_date", "study_duration")
+        .order_by("visit_date")
+    )
+
+
+    for row in rows:
+        writer.writerow(row)
+
+
+    return response
+
+def export_visits_json(request):
+
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
+    filename = f"students_{timestamp}.json"
+
+    visits_data = [
+        {
+            "student": f"{v.student.first_name} {v.student.last_name}",
+            "shop": v.shop.name,
+            "visit_date": v.visit_date.isoformat(),
+            "study_duration": v.study_duration,
+        }
+        for v in Visit.objects.select_related("student", "shop").order_by("visit_date")
+    ]
+
+    data = {
+        "downloaded_at": timezone.now().isoformat(),
+        "record_count": len(visits_data),
+        "visits": visits_data,
+    }
+
+    response = JsonResponse(data, json_dumps_params={"indent": 2})
+    response["Content-Disposition"] = f'attachment; filename="{filename}"'
+    return response
