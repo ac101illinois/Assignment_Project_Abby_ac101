@@ -1,7 +1,8 @@
 from django.contrib.admindocs.views import ViewDetailView
 from django.views import View
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import DetailView, ListView, CreateView
+from django.views.generic import DetailView, ListView, CreateView, TemplateView
+from django.db.models import Sum
 from django.db.models import Count
 
 # Create your views here.
@@ -346,6 +347,29 @@ class MapNowJsonResponse(View):
 
 
 #Assignment 11:
+
+class ReportsView(TemplateView):
+    template_name = "reports.html"
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+
+        ctx["visits_per_shop"] = (
+            Visit.objects
+            .values("shop__name")
+            .annotate(total_visits=Count("id"))
+            .order_by("shop__name")
+        )
+
+        ctx["study_time_per_shop"] = (
+            Visit.objects
+            .values("shop__name")
+            .annotate(total_study_time=Sum("study_duration"))
+            .order_by("shop__name")
+        )
+
+        ctx["total_visits"] = Visit.objects.count()
+        return ctx
 
 def export_visits_csv(request):
 

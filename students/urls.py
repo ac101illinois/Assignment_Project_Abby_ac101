@@ -21,6 +21,7 @@ from .views import (
     MapNowJsonResponse,
     export_visits_csv,
     export_visits_json,
+    ReportsView,
 )
 
 app_name = "students"
@@ -46,5 +47,6 @@ urlpatterns = [
     path("api/map/json/", MapNowJsonResponse.as_view(), name="map_jsonresponse"),
     path('export/visits/csv/', export_visits_csv, name='export_visits_csv'),
     path('export/visits/json/', export_visits_json, name='export_visits_json'),
+    path('reports/', ReportsView.as_view(), name='reports'),
 
 ]

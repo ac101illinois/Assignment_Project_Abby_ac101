@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Reports Dashboard</h1>
+
+<h2>Visits per Coffee Shop</h2>
+<table border="1">
+  <tr>
+    <th>Coffee Shop</th>
+    <th>Total Visits</th>
+  </tr>
+  {% for row in visits_per_shop %}
+    <tr>
+      <td>{{ row.shop__name }}</td>
+      <td>{{ row.total_visits }}</td>
+    </tr>
+  {% empty %}
+    <tr><td colspan="2">No data available.</td></tr>
+  {% endfor %}
+</table>
+
+<h2>Total Study Time per Coffee Shop</h2>
+<table border="1">
+  <tr>
+    <th>Coffee Shop</th>
+    <th>Total Study Duration (min)</th>
+  </tr>
+  {% for row in study_time_per_shop %}
+    <tr>
+      <td>{{ row.shop__name }}</td>
+      <td>{{ row.total_study_time }}</td>
+    </tr>
+  {% empty %}
+    <tr><td colspan="2">No data available.</td></tr>
+  {% endfor %}
+</table>
+
+<h3>Overall Total Visits: {{ total_visits }}</h3>
+
+<hr>
+
+<h2>Data Exports</h2>
+<a href="{% url 'students:export_visits_csv' %}" class="btn btn-primary">Download CSV</a>
+<a href="{% url 'students:export_visits_json' %}" class="btn btn-secondary">Download JSON</a>
+
+{% endblock %}
