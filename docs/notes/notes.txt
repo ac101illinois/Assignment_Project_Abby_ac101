@@ -150,3 +150,23 @@ out. It currently shows the user's current location.
 - I noticed how searching for some of the coffee shops does not work, and I am still figuring out how to fix
 it. I figure the search bar I created is accent sensitive, but there are other establishments, like Dunkin' on
 Green Street, that is not showing up for me.
+
+Assignment #11: Part 1
+1. For the csv file, I created a httpresponse with the content type "text/csv", with fields Student, Shop,
+Visit Date, and Study Duration(min)
+2. For the json file, I serialized the data into a list of dictionaries and rendered a json response with the
+fields student, shop, visit date, and study duration
+3. On the reports page, I aggregated the amount of visits per each coffee shop, and the amount of minutes in
+total spent at each coffee shop. Then, I gathered the total number of visits made across all the coffee shops.
+
+Assignment #12: Part 2
+1. Authentication matters because we don't want external users accessing other people's data and information
+from our websites. We also don't want them to access admin pages that control the website and its features, it
+should only be accessible to the team, and the other pages should only be acceptable to internal users
+2. LoginRequiredMixin is a parameter that ensures class-based views are only able to be accessed by a user with
+an account. @login_required is used in function-based views to only allow logged-in users access to those views
+3. the next query parameter stores a redirect url for the page a user originally tried to access before they
+signed up for the website. Once they do, they are taken to that original page
+4. in settings, I created the login url, login redirect url, and the logout redirect url so it sends users to the
+right page after those actions
+5. Django's user model automatically sets a new user to not staff or super user once they sign up
