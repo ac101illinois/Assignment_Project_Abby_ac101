@@ -1,5 +1,7 @@
 {% load static %}
 
+{% load static %}
+
 <head>
     <title>{% block title %}CoffeeSpot{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
@@ -12,10 +14,23 @@
                 <img src="{% static 'coffee_icon.png' %}" alt="Logo" class="logo">
                 <h1 class="site-title">CoffeeSpot</h1>
             </div>
+
             <nav class="nav">
                 <a href="/">Home</a>
                 <a href="/students/">Students</a>
                 <a href="/map/">Map</a>
+
+                <!-- 👇 Add this small block -->
+                {% if user.is_authenticated %}
+                    <span class="welcome-text">Welcome, {{ user.username }}!</span>
+                    <form method="post" action="{% url 'logout_urlpattern' %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="logout-btn">Logout</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login_urlpattern' %}">Login</a>
+                    <a href="{% url 'signup_urlpattern' %}">Sign Up</a>
+                {% endif %}
             </nav>
         </div>
     </header>
