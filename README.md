@@ -118,3 +118,31 @@ For this assignment, I used an API names Nominatim to allow the user to search
 for different coffee shops in the Champaign area. I also built a JSON view, as well as
 an HTML template view for the page.
 
+Assignment #11 Part 1:
+- For this assignment, I created views which would allow the user to download specific 
+information from my website and export them into both csv and json files. The url paths I
+used for them are:
+path('export/visits/csv/', export_visits_csv, name='export_visits_csv'),
+path('export/visits/json/', export_visits_json, name='export_visits_json')
+- My reports page shows summaries of each visit per coffee shop and the amount of 
+minutes spent studying at each coffeeshop, and it displays the total number of visits 
+made throughout all the coffee shops
+
+Assignment #11 Part 2:
+1. The routes for each of my function and class-based views are protected, meaning they
+cannot be accessed by an external user without an account. This is to keep people from
+seeing certain information and being able to download user-specific data without their
+permission
+2. There are no specific public endpoints. The only pages non-authenticated users are 
+able to access is the signin/login pages.
+3. The post-login page is the map page, which I thought makes the most sense from a user
+standpoint, because the first "step" to using the website is to search for coffee shops
+to visit. The post log-out page brings the user to the login page once more
+4. I added the credentials (mohitg2/graingerlibrary) as an account, so they should work
+5. If a user wants to sign up for my website, it functions very similarly to how the 
+instructor's does. It will ask for a username and an email. It also asks for a password
+that matches specific requirements, (cannot be too similar to your personal information,
+cannot be common, must contain 8 characters, etc.) The user then puts in the password
+again to confirm it, and then you click the "create account" button to finish the
+signup process. Afterward, you are automatically logged in and taken to the map page.
+

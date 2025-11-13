@@ -128,5 +128,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
+LOGIN_URL = 'login_urlpattern'
 LOGIN_REDIRECT_URL = 'students:map'
 LOGOUT_REDIRECT_URL = 'login_urlpattern'

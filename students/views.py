@@ -445,7 +445,7 @@ def signup_view(request):
         if form.is_valid():
             new_user = form.save()
             login(request, new_user)
-            return redirect("map")
+            return redirect("students:map")
     else:
         form = SignUpForm()
 
