@@ -13,6 +13,7 @@ from io import BytesIO
 
 from .models import Student, CoffeeShop, Visit, Review
 from .forms import ReviewForm
+from .forms_auth import SignUpForm
 from django.urls import reverse
 import json
 import urllib.request
@@ -21,8 +22,14 @@ from datetime import datetime
 import csv
 from django.utils import timezone
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import login
+from .forms_auth import SignUpForm
+
 
 #HttpResponse Version
+@login_required(login_url='login_urlpattern')
 def student_list_view(request):
     student_list_query = Student.objects.all()
     template = loader.get_template('student_list.html')
@@ -33,13 +40,13 @@ def student_list_view(request):
     return HttpResponse(output)
 
 #Render Version
-
+@login_required(login_url='login_urlpattern')
 def coffeeshop_list_render(request):
     coffeeshops = CoffeeShop.objects.all()
     return render(request, 'coffeeshop_list.html', {'coffeeshops' : coffeeshops})
 
 #List View
-class VisitListView(ListView):
+class VisitListView(LoginRequiredMixin, ListView):
     model = Visit
     template_name = "visit_list.html"
     context_object_name = "visit_list"
@@ -72,7 +79,7 @@ class VisitListView(ListView):
         return ctx
 
 #Base View
-class StudentBaseView(View):
+class StudentBaseView(LoginRequiredMixin, View):
     def get(self, request):
         students = Student.objects.all()
         # Render template with context
@@ -81,14 +88,14 @@ class StudentBaseView(View):
         })
 
 #Generic View
-class ReviewListView(ListView):
+class ReviewListView(LoginRequiredMixin, ListView):
     model = Review
     template_name = 'review_list.html'
     context_object_name = 'review_list_html'
 
 
 #Third View - Detail View
-class StudentDetailView(DetailView):
+class StudentDetailView(LoginRequiredMixin, DetailView):
     def get(self, request, primary_key):
         student = get_object_or_404(Student, pk=primary_key)
         visits = student.visit_set.all()  # default related name
@@ -108,6 +115,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 #Chart for visits per each student
+@login_required(login_url='login_urlpattern')
 def student_visits_chart(request):
 
     data = (
@@ -138,6 +146,7 @@ def student_visits_chart(request):
 
     return HttpResponse(buf.getvalue(), content_type="image/png")
 
+@login_required(login_url='login_urlpattern')
 def analytics(request):
     visits_per_student = (
         Visit.objects
@@ -153,7 +162,7 @@ def analytics(request):
     return render(request, "analytics.html", context)
 
 #Assignment 8, Function-based view that handles post and get
-
+@login_required(login_url='login_urlpattern')
 def review_view(request):
     if request.method == "POST":
         form = ReviewForm(request.POST)
@@ -169,7 +178,7 @@ def review_view(request):
 #Assignment 8: Generic class based view
 from django.urls import reverse_lazy
 
-class ReviewCreateView(CreateView):
+class ReviewCreateView(LoginRequiredMixin, CreateView):
     model = Review
     form_class = ReviewForm
     template_name = "add_review.html"
@@ -181,6 +190,7 @@ from django.db.models import Count, Q
 
 
 # Function based api view
+@login_required(login_url='login_urlpattern')
 def api_visits(request):
     visits = Visit.objects.select_related("student", "shop").all()
     data = {
@@ -200,7 +210,7 @@ def api_visits(request):
 
 
 #class based view
-class CoffeeVisitAPI(View):
+class CoffeeVisitAPI(LoginRequiredMixin, View):
     def get(self, request):
         data = (
             CoffeeShop.objects.annotate(total_visits=Count("visit", distinct=True))
@@ -212,6 +222,7 @@ class CoffeeVisitAPI(View):
 
 
 # chart view
+@login_required(login_url='login_urlpattern')
 def visits_chart_png(request):
     api_url = request.build_absolute_uri(reverse("students:coffee_shop_visit_api"))
 
@@ -250,13 +261,15 @@ def visits_chart_png(request):
     buf.seek(0)
     return HttpResponse(buf.getvalue(), content_type="image/png")
 
+@login_required(login_url='login_urlpattern')
 def visits_chart_view(request):
     return render(request, "visits_chart.html")
 
+@login_required(login_url='login_urlpattern')
 def api_ping_jsonresponse(request):
     return JsonResponse({"ok": True})
 
-
+@login_required(login_url='login_urlpattern')
 def api_ping_httpresponse(request):
     payload = json.dumps({"ok": True})
     payload2 = json.loads(payload)
@@ -265,7 +278,7 @@ def api_ping_httpresponse(request):
 #Assignment 10:
 #Map View for the Html Template
 
-class MapNow(View):
+class MapNow(LoginRequiredMixin, View):
     def get(self, request):
         query = request.GET.get("q", "")  # user input
         search_term = f"cafe {query} Champaign, IL"
@@ -308,7 +321,7 @@ class MapNow(View):
         return render(request, "map.html", context)
 
 #View for the JSON response:
-class MapNowJsonResponse(View):
+class MapNowJsonResponse(LoginRequiredMixin, View):
     def get(self, request):
         query = request.GET.get("q", "Champaign, IL")
 
@@ -348,7 +361,7 @@ class MapNowJsonResponse(View):
 
 #Assignment 11:
 
-class ReportsView(TemplateView):
+class ReportsView(LoginRequiredMixin, TemplateView):
     template_name = "reports.html"
 
     def get_context_data(self, **kwargs):
@@ -371,6 +384,7 @@ class ReportsView(TemplateView):
         ctx["total_visits"] = Visit.objects.count()
         return ctx
 
+@login_required(login_url='login_urlpattern')
 def export_visits_csv(request):
 
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
@@ -398,6 +412,7 @@ def export_visits_csv(request):
 
     return response
 
+@login_required(login_url='login_urlpattern')
 def export_visits_json(request):
 
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
@@ -422,3 +437,16 @@ def export_visits_json(request):
     response = JsonResponse(data, json_dumps_params={"indent": 2})
     response["Content-Disposition"] = f'attachment; filename="{filename}"'
     return response
+
+#Assigment 11:
+def signup_view(request):
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            new_user = form.save()
+            login(request, new_user)
+            return redirect("map")
+    else:
+        form = SignUpForm()
+
+    return render(request, "signup.html", {"form": form})
