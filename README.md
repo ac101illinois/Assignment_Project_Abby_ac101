@@ -146,3 +146,15 @@ cannot be common, must contain 8 characters, etc.) The user then puts in the pas
 again to confirm it, and then you click the "create account" button to finish the
 signup process. Afterward, you are automatically logged in and taken to the map page.
 
+Assignment #12:
+- For this assignment, I learned how to structure my settings folder and work between my
+local device and PythonAnywhere to deploy my live app.
+- I created a settings folder and made production.py, development.py and base.py to 
+manage and organize my settings and prepare for deployment
+- Then, I went to PythonAnywhere and worked with the bash console to link my local
+app to the website using my github repository, cloning my project and uploading my
+requirments.txt file
+- I also connected my settings, made migrations, and set up my wsgi file
+- Afterward, I tried deploying my live app but was unsuccessful. I wam planning to try
+and resolve this, as I figured that my production.py settings is not connecting to my
+bash file correctly, and I am unsure how to solve this.
