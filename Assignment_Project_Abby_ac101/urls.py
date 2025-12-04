@@ -30,10 +30,11 @@ urlpatterns = [
          name='login_urlpattern'),
 
     # Logout view
-    path('logout/',
-         LogoutView.as_view(),
-         name='logout_urlpattern'),
-
+    path(
+        'logout/',
+        LogoutView.as_view(next_page='students:home'),
+        name='logout_urlpattern'
+    ),
     # Signup view
     path('signup/',
          signup_view,
