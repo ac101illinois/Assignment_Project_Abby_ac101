@@ -164,15 +164,28 @@ def analytics(request):
 #Assignment 8, Function-based view that handles post and get
 @login_required(login_url='login_urlpattern')
 def review_view(request):
+    name = request.GET.get("name")
+    lat = request.GET.get("lat")
+    lon = request.GET.get("lon")
+
     if request.method == "POST":
         form = ReviewForm(request.POST)
         if form.is_valid():
-            data = form.cleaned_data
-            print("Name:", data["name"], "Review:", data["comment"])
-            return redirect("students:review-list")
+            review = form.save(commit=False)
+            review.shop_name = name
+            review.latitude = lat
+            review.longitude = lon
+            review.save()
+            return redirect("students:map")
     else:
         form = ReviewForm()
-    return render(request, "add_review.html", {"form": form})
+
+    return render(request, "add_review.html", {
+        "form": form,
+        "shop_name": name,
+        "lat": lat,
+        "lon": lon,
+    })
 
 
 #Assignment 8: Generic class based view

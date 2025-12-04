@@ -20,7 +20,6 @@
                 <a href="/students/">Students</a>
                 <a href="/map/">Map</a>
 
-                <!-- 👇 Add this small block -->
                 {% if user.is_authenticated %}
                     <span class="welcome-text">Welcome, {{ user.username }}!</span>
                     <form method="post" action="{% url 'logout_urlpattern' %}" style="display:inline;">

@@ -5,11 +5,16 @@
 {% block page_title %}Submit a Coffee Shop Review{% endblock %}
 
 {% block content %}
-<form method="post">
+
+{% if shop_name %}
+    <p><strong>Reviewing:</strong> {{ shop_name }}</p>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Submit Review</button>
 </form>
 
-<a href="{% url 'students:review-list' %}">Back to Reviews</a>
+<a href="{% url 'students:review-list' %}">Back to Map</a>
 {% endblock %}

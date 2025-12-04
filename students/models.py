@@ -45,8 +45,6 @@ class Review(models.Model):
         (4, "4 stars"),
         (5, "5 stars"),
     ]
-    name = models.CharField(max_length=50, blank=True)
-    visit = models.ForeignKey(Visit, on_delete=models.CASCADE)
     rating = models.IntegerField(choices=rating_choices)
     comment = models.TextField(blank=True)
 
