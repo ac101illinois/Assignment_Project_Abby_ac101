@@ -18,9 +18,9 @@
                 <li>
                     <strong>{{ loc.display_name }}</strong><br>
                     Latitude: {{ loc.lat }}, Longitude: {{ loc.lon }}<br>
-                    Type: {{ loc.type }}
+                    Type: {{ loc.type }}<br>
 
-                    <a href="{% url 'students:review-add-fbv' %}?name={{ loc.display_name|urlencode }}&lat={{ loc.lat }}&lon={{ loc.lon }}">
+                    <a href="/students/reviews/add/fbv/?name={{ loc.display_name|urlencode }}">
                         Write a Review
                     </a>
                 </li>

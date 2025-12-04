@@ -1,13 +1,18 @@
-{% block title %}Reviews List{% endblock %}
+{% extends "base.html" %}
+
+{% block title %}My Reviews{% endblock %}
+
+{% block page_title %}My Reviews{% endblock %}
 
 {% block content %}
   <ul>
     {% for r in review_list_html %}
       <li>
-        {{ r.visit.student }} reviewed {{ r.visit.shop.name }} on {{ r.visit.visit_date }} <br>
-        Rating: {{ r.rating }}/5 <br>
+        <p><strong>Shop:</strong> {{ r.visit.shop.name }}</p>
+        <p>You reviewed this shop on {{ r.visit.visit_date }}</p>
+        <p>Rating: {{ r.rating }}/5</p>
         {% if r.comment %}
-          Comment: "{{ r.comment }}"
+          <p>Comment: "{{ r.comment }}"</p>
         {% endif %}
       </li>
     {% empty %}

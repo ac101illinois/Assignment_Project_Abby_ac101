@@ -26,6 +26,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login
 from .forms_auth import SignUpForm
+from datetime import date
 
 
 #HttpResponse Version
@@ -164,28 +165,28 @@ def analytics(request):
 #Assignment 8, Function-based view that handles post and get
 @login_required(login_url='login_urlpattern')
 def review_view(request):
-    name = request.GET.get("name")
-    lat = request.GET.get("lat")
-    lon = request.GET.get("lon")
+    shop_name = request.GET.get("name", "")
+    shop, created = CoffeeShop.objects.get_or_create(name=shop_name)
+
+    # simple way: pick first student in DB
+    student = Student.objects.first()
 
     if request.method == "POST":
         form = ReviewForm(request.POST)
         if form.is_valid():
+            visit = Visit.objects.create(
+                student=student,
+                shop=shop,
+                visit_date=date.today()
+            )
             review = form.save(commit=False)
-            review.shop_name = name
-            review.latitude = lat
-            review.longitude = lon
+            review.visit = visit
             review.save()
-            return redirect("students:map")
+            return redirect("students:review-list")
     else:
         form = ReviewForm()
 
-    return render(request, "add_review.html", {
-        "form": form,
-        "shop_name": name,
-        "lat": lat,
-        "lon": lon,
-    })
+    return render(request, "add_review.html", {"form": form, "shop_name": shop_name})
 
 
 #Assignment 8: Generic class based view

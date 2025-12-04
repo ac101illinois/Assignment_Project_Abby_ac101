@@ -38,6 +38,7 @@ class Visit(models.Model):
         return f"{self.student} visited {self.shop} on {self.visit_date}"
 
 class Review(models.Model):
+    visit = models.ForeignKey(Visit, on_delete=models.CASCADE, null=True, blank=True)  # add this
     rating_choices = [
         (1, "1 star"),
         (2, "2 stars"),

@@ -17,9 +17,8 @@
 
             <nav class="nav">
                 <a href="/">Home</a>
-                <a href="/students/">Students</a>
-                <a href="/map/">Map</a>
-
+                <a href="{% url 'students:map' %}">Map</a>
+                <a href="{% url 'students:review-list' %}">My Reviews</a>
                 {% if user.is_authenticated %}
                     <span class="welcome-text">Welcome, {{ user.username }}!</span>
                     <form method="post" action="{% url 'logout_urlpattern' %}" style="display:inline;">
