@@ -1,10 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% load static %}
+
+{% block title %}CoffeeSpot{% endblock %}
+
+{% block page_title %}Welcome to CoffeeSpot!{% endblock %}
+
+{% block content %}
+<div style="text-align: center; margin-top: 50px;">
+    <img src="{% static 'coffee_icon.png' %}" alt="CoffeeSpot Logo" style="width:150px; height:auto;">
+    <h1>CoffeeSpot</h1>
+
+    <div style="margin-top: 50px;">
+        <a href="{% url 'login_urlpattern' %}" style="padding: 10px 20px; background-color:#4CAF50; color:white; text-decoration:none; margin-right:10px;">Login</a>
+        <a href="{% url 'signup_urlpattern' %}" style="padding: 10px 20px; background-color:#2196F3; color:white; text-decoration:none;">Sign Up</a>
+    </div>
+</div>
+{% endblock %}

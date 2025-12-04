@@ -22,11 +22,13 @@ from .views import (
     export_visits_csv,
     export_visits_json,
     ReportsView,
+    home_view
 )
 
 app_name = "students"
 
 urlpatterns = [
+    path("", home_view, name="home"),
     path("studentlist", student_list_view, name="student-list"),
     path("coffeeshops/", coffeeshop_list_render, name="coffeeshop-list"),
     path("visits/", VisitListView.as_view(), name="visit-list"),
